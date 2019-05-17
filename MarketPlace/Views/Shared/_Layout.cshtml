@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - MarketPlace</title>
+
+    <link href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.common-nova.min.css" rel="stylesheet" type="text/css" />
+    @*<link href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.nova.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://kendo.cdn.telerik.com/2019.1.220/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2019.1.220/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2019.1.220/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2019.1.220/js/kendo.aspnetmvc.min.js"></script>
+
+    
+    <script src="~/build/javascripts/main.js"></script>
+
+    <environment names="Development">
+        @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/build/css/style.css" />
+    </environment>
+    <environment names="Staging,Production">
+        @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+            asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/build/css/style.css" asp-append-version="true" />
+    </environment>
+
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-col">
+                        <a href="#" class="navbar-brand"></a>
+                    </div>
+                </div>
+                <div class="navbar-center d-none d-md-block">
+                    <p class="mb-0"><strong class="text-md">60 Martin Place, Sydney Nsw</strong></p>
+                </div>
+                <div class="navbar-right">
+                    <ul class="account-info">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle avatar no-arrow" data-toggle="dropdown">
+                                <img src="images/avatar.jpg" alt="">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Account</a>
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item btn-arrow" href="#">Logout</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="notification">
+                                <span class="fas fa-bell text-darker"><em class="badge badge-rounded badge-danger">1</em></span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle no-arrow px-1" data-toggle="dropdown">
+                                <span class="icon-image icon-image-settings"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Account</a>
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item btn-arrow" href="#">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <div class="sidebar">
+                <div class="column-content">
+                    <div class="scroll-bar">
+                        <div class="content-inner">
+                            <ul class="sidenav accordion-menu">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Building</a></li>
+                                <li>
+                                    <a href="#" class="acc-toggle">Services</a>
+                                    <ul class="acc-content show">
+                                        <li><a href="@Url.Action("Index", "Device")">Devices</a></li>
+                                        <li><a href="@Url.Action("Index", "Point")">Points</a></li>
+                                        <li class="active"><a href="#">Users</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="acc-toggle">Access</a>
+                                    <ul class="acc-content">
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">Events</a></li>
+                                        <li><a href="#">Competition</a></li>
+                                        <li><a href="#">Category</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="acc-toggle active">Content</a>
+                                    <ul class="acc-content">
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">Events</a></li>
+                                        <li><a href="#">Competition</a></li>
+                                        <li><a href="#">Category</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Help Desk</a></li>
+                                <li><a href="#">Reports</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                @RenderBody()
+
+            </div>
+            @*<footer class="footer">
+                <span class="text-muted">Copyright © @DateTime.Now.Year Progress Software Corporation and/or its subsidiaries or affiliates.</span>
+                <span class="text-muted">All rights reserved.</span>
+            </footer>*@
+        </main>
+    </div>
+        @RenderSection("scripts", required: false)
+
+        
+        <script>
+            $(document).ready(function () {
+                $("#responsive-panel").kendoResponsivePanel({
+                    breakpoint: 768,
+                    autoClose: false,
+                    orientation: "top"
+                });
+            });
+            function onclick(e) {
+                $("#responsive-panel").getKendoResponsivePanel().toggle();
+            }
+        </script>
+</body>
+</html>
