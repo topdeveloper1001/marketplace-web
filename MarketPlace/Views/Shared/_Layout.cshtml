@@ -26,7 +26,7 @@
         @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
             asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
             asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/build/css/style.css" asp-append-version="true" />
     </environment>
 
@@ -89,6 +89,8 @@
                                     <ul class="acc-content show">
                                         <li><a href="@Url.Action("Index", "Device")">Devices</a></li>
                                         <li><a href="@Url.Action("Index", "Point")">Points</a></li>
+                                        <li><a href="@Url.Action("Index", "Category")">Categories</a></li>
+                                        <li><a href="@Url.Action("Index", "Connector")">Connectors</a></li>
                                         <li class="active"><a href="#">Users</a></li>
                                     </ul>
                                 </li>

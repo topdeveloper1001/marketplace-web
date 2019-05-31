@@ -1,0 +1,376 @@
+@using MarketPlace.Models
+@model ConnectorDto
+@{
+    ViewData["Title"] = "Connector Config Page";
+}
+<div class="main-content d-flex flex-column">
+    <div class="content-header flex-shrink-0">
+        <div class="ch-left">
+            <h1 class="h2"><strong class="text-muted">Services / Connector / ConnectorConfigs (@Model.Name)</strong></h1>
+        </div>
+        <div class="ch-right">
+            <ul class="list-inline">
+                <li>
+                    <div class="search-box">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-box flex-grow-1 d-flex flex-column">
+        
+        <div class="flex-grow-1 position-relative d-flex">
+            <div class="tab-content">
+                <div id="tab-all" class="tab-pane fade show active">
+                    <div class="column-content table-wrapper">
+
+                        @(Html.Kendo().Grid<MarketPlace.Models.ConnectorConfigDto>()
+                                .Name("Grid")
+                                //.TableHtmlAttributes(new { @class = "table data-table" })
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(p => p.KeyName).Title("Key Name");
+                                    columns.Bound(p => p.DataType).Title("Data Type");
+                                            //columns.Bound(p => p.projects.ToString());
+                                            columns.Command(command =>
+                                    {
+                                        command.Custom("Details").Click("showDetails");
+                                        command.Custom("Copy").Click("showDetails");
+                                    }).Width(150);
+                                            //columns.Command(command => { command.Custom("View Details").Click("showDetails"); });
+                                            //columns.Command(command => { command.Edit(); command.Destroy(); }).Width(172);
+                                        })
+                                .ClientRowTemplate(
+                                    "<tr data-uid='#: id #'>" +
+                                        "<td>" +
+                                            "<strong>#= KeyName #</strong>" +
+                                        "</td>" +
+                                        "<td>" +
+                                            "<strong>#= DataType #</strong>" +
+                                        "</td>" +
+                                        "<td>" +
+                                            "<div class='data-tools'>" +
+                                                "<ul class='list-inline'>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-edit' data-toggle='tooltip' data-placement='top' title ='Edit'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='11.745' height='11.526' class='icon-svg icon-edit' viewBox='0 0 11.745 11.526'>" +
+                                                            "<g id='edit' transform='translate(-5.6 -6.9)'>" +
+                                                            "<g id='Group_12540' data-name='Group 12540' transform='translate(5.6 6.9)'>" +
+                                                                "<path id='Path_8339' data-name='Path 8339' d='M17.017,114.3H6.109a.411.411,0,0,0-.409.409.417.417,0,0,0,.409.409H17.027a.411.411,0,0,0,.409-.409A.419.419,0,0,0,17.017,114.3Z' transform='translate(-5.69 -103.591)' fill='\\#44474e'></path>" +
+                                                                "<path id='Path_8340' data-name='Path 8340' d='M5.61,13.989,5.6,15.934a.422.422,0,0,0,.12.3.4.4,0,0,0,.289.12l1.934-.01a.4.4,0,0,0,.289-.12l6.681-6.681a.421.421,0,0,0,0-.588L13,7.02a.421.421,0,0,0-.588,0L11.074,8.366,5.73,13.7a.444.444,0,0,0-.12.289Zm7.1-6.092,1.346,1.346L13.3,10,11.952,8.655l.758-.758ZM6.438,14.169l4.926-4.926,1.346,1.346L7.784,15.505l-1.356.01Z' transform='translate(-5.6 -6.9)' fill='\\#44474e'></path>" +
+                                                            "</g>" +
+                                                            "</g>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-view' data-toggle='tooltip' data-placement='top' title ='View'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='12.712' height='8.667' class='icon-svg icon-view' viewBox='0 0 12.712 8.667'>" +
+                                                            "<path id='eye_open' data-name='eye open' d='M7.356,4.5A6.834,6.834,0,0,0,1,8.834a6.828,6.828,0,0,0,12.712,0A6.834,6.834,0,0,0,7.356,4.5Zm0,7.223a2.889,2.889,0,1,1,2.889-2.889A2.89,2.89,0,0,1,7.356,11.723Zm0-4.623A1.733,1.733,0,1,0,9.089,8.834,1.731,1.731,0,0,0,7.356,7.1Z' transform='translate(-1 -4.5)' fill='\\#44474e'></path>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-duplicate' data-toggle='tooltip' data-placement='top' title ='Duplicate'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='12.058' height='12.058' class='icon-svg icon-copy-document' viewBox='0 0 12.058 12.058'>" +
+                                                            "<g id='copy-document' transform='translate(0)'>" +
+                                                                "<path id='Path_9510' data-name='Path 9510' d='M11.869,2.772a.623.623,0,0,0-.457-.188h-2.8a1.711,1.711,0,0,0-.861.269V.646A.623.623,0,0,0,7.563.188.623.623,0,0,0,7.105,0h-2.8a1.554,1.554,0,0,0-.592.135A1.566,1.566,0,0,0,3.2.458L.458,3.2a1.565,1.565,0,0,0-.323.511A1.554,1.554,0,0,0,0,4.306V8.828a.623.623,0,0,0,.188.458.623.623,0,0,0,.458.188h3.66v1.938a.643.643,0,0,0,.646.646h6.46a.643.643,0,0,0,.646-.646V3.23A.623.623,0,0,0,11.869,2.772ZM7.751,4.017V6.029H5.74ZM3.445,1.433V3.445H1.433ZM4.764,5.787a1.565,1.565,0,0,0-.323.511,1.554,1.554,0,0,0-.135.592V8.613H.861V4.306h2.8a.643.643,0,0,0,.646-.646V.861H6.89v2.8ZM11.2,11.2H5.167V6.89h2.8a.643.643,0,0,0,.646-.646v-2.8H11.2V11.2h0Z' transform='translate(0 0)' fill='\\#44474e'></path>" +
+                                                            "</g>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-delete' data-toggle='tooltip' data-placement='top' title ='Delete'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='10.894' height='11.526' class='icon-svg icon-trash' viewBox='0 0 10.894 11.526'>" +
+                                                            "<path id='Path_8338' data-name='Path 8338' d='M1627.55,1797.722l-.387,7.324a.506.506,0,0,1-.506.48h-6.422a.506.506,0,0,1-.506-.48l-.387-7.324a.507.507,0,1,1,1.012-.053l.361,6.844h5.461l.361-6.844a.507.507,0,0,1,1.012.053Zm1.343-1.7a.507.507,0,0,1-.507.507h-9.88a.507.507,0,1,1,0-1.013h2.787v-1.14a.364.364,0,0,1,.408-.38h3.49a.364.364,0,0,1,.408.38v1.14h2.787A.507.507,0,0,1,1628.893,1796.027Zm-6.713-.507h2.533v-.633h-2.533Zm.212,8.233h.011a.464.464,0,0,0,.433-.48l-.129-5.476a.448.448,0,0,0-.454-.439.44.44,0,0,0-.433.45l.129,5.488A.465.465,0,0,0,1622.392,1803.753Zm2.089,0a.453.453,0,0,0,.443-.445l.129-5.469a.446.446,0,0,0-.433-.457.441.441,0,0,0-.454.431l-.129,5.475a.45.45,0,0,0,.433.465Z' transform='translate(-1618 -1794)' fill='\\#44474e'></path>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                "</ul>" +
+                                            "</div>" +
+                                        "</td>" +
+                                    "</tr>"
+
+                                )
+                                .ClientAltRowTemplate(
+                                    "<tr data-uid='#: id #'>" +
+                                        "<td>" +
+                                            "<strong>#= KeyName #</strong>" +
+                                        "</td>" +
+                                        "<td>" +
+                                            "<strong>#= DataType #</strong>" +
+                                        "</td>" +
+                                        "<td>" +
+                                            "<div class='data-tools'>" +
+                                                "<ul class='list-inline'>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-edit' data-toggle='tooltip' data-placement='top' title ='Edit'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='11.745' height='11.526' class='icon-svg icon-edit' viewBox='0 0 11.745 11.526'>" +
+                                                            "<g id='edit' transform='translate(-5.6 -6.9)'>" +
+                                                            "<g id='Group_12540' data-name='Group 12540' transform='translate(5.6 6.9)'>" +
+                                                                "<path id='Path_8339' data-name='Path 8339' d='M17.017,114.3H6.109a.411.411,0,0,0-.409.409.417.417,0,0,0,.409.409H17.027a.411.411,0,0,0,.409-.409A.419.419,0,0,0,17.017,114.3Z' transform='translate(-5.69 -103.591)' fill='\\#44474e'></path>" +
+                                                                "<path id='Path_8340' data-name='Path 8340' d='M5.61,13.989,5.6,15.934a.422.422,0,0,0,.12.3.4.4,0,0,0,.289.12l1.934-.01a.4.4,0,0,0,.289-.12l6.681-6.681a.421.421,0,0,0,0-.588L13,7.02a.421.421,0,0,0-.588,0L11.074,8.366,5.73,13.7a.444.444,0,0,0-.12.289Zm7.1-6.092,1.346,1.346L13.3,10,11.952,8.655l.758-.758ZM6.438,14.169l4.926-4.926,1.346,1.346L7.784,15.505l-1.356.01Z' transform='translate(-5.6 -6.9)' fill='\\#44474e'></path>" +
+                                                            "</g>" +
+                                                            "</g>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-view' data-toggle='tooltip' data-placement='top' title ='View'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='12.712' height='8.667' class='icon-svg icon-view' viewBox='0 0 12.712 8.667'>" +
+                                                            "<path id='eye_open' data-name='eye open' d='M7.356,4.5A6.834,6.834,0,0,0,1,8.834a6.828,6.828,0,0,0,12.712,0A6.834,6.834,0,0,0,7.356,4.5Zm0,7.223a2.889,2.889,0,1,1,2.889-2.889A2.89,2.89,0,0,1,7.356,11.723Zm0-4.623A1.733,1.733,0,1,0,9.089,8.834,1.731,1.731,0,0,0,7.356,7.1Z' transform='translate(-1 -4.5)' fill='\\#44474e'></path>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-duplicate' data-toggle='tooltip' data-placement='top' title ='Duplicate'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='12.058' height='12.058' class='icon-svg icon-copy-document' viewBox='0 0 12.058 12.058'>" +
+                                                            "<g id='copy-document' transform='translate(0)'>" +
+                                                                "<path id='Path_9510' data-name='Path 9510' d='M11.869,2.772a.623.623,0,0,0-.457-.188h-2.8a1.711,1.711,0,0,0-.861.269V.646A.623.623,0,0,0,7.563.188.623.623,0,0,0,7.105,0h-2.8a1.554,1.554,0,0,0-.592.135A1.566,1.566,0,0,0,3.2.458L.458,3.2a1.565,1.565,0,0,0-.323.511A1.554,1.554,0,0,0,0,4.306V8.828a.623.623,0,0,0,.188.458.623.623,0,0,0,.458.188h3.66v1.938a.643.643,0,0,0,.646.646h6.46a.643.643,0,0,0,.646-.646V3.23A.623.623,0,0,0,11.869,2.772ZM7.751,4.017V6.029H5.74ZM3.445,1.433V3.445H1.433ZM4.764,5.787a1.565,1.565,0,0,0-.323.511,1.554,1.554,0,0,0-.135.592V8.613H.861V4.306h2.8a.643.643,0,0,0,.646-.646V.861H6.89v2.8ZM11.2,11.2H5.167V6.89h2.8a.643.643,0,0,0,.646-.646v-2.8H11.2V11.2h0Z' transform='translate(0 0)' fill='\\#44474e'></path>" +
+                                                            "</g>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                    "<li><a '\\#' class='tool-btn icon-btn connectorconfig-delete' data-toggle='tooltip' data-placement='top' title ='Delete'>" +
+                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='10.894' height='11.526' class='icon-svg icon-trash' viewBox='0 0 10.894 11.526'>" +
+                                                            "<path id='Path_8338' data-name='Path 8338' d='M1627.55,1797.722l-.387,7.324a.506.506,0,0,1-.506.48h-6.422a.506.506,0,0,1-.506-.48l-.387-7.324a.507.507,0,1,1,1.012-.053l.361,6.844h5.461l.361-6.844a.507.507,0,0,1,1.012.053Zm1.343-1.7a.507.507,0,0,1-.507.507h-9.88a.507.507,0,1,1,0-1.013h2.787v-1.14a.364.364,0,0,1,.408-.38h3.49a.364.364,0,0,1,.408.38v1.14h2.787A.507.507,0,0,1,1628.893,1796.027Zm-6.713-.507h2.533v-.633h-2.533Zm.212,8.233h.011a.464.464,0,0,0,.433-.48l-.129-5.476a.448.448,0,0,0-.454-.439.44.44,0,0,0-.433.45l.129,5.488A.465.465,0,0,0,1622.392,1803.753Zm2.089,0a.453.453,0,0,0,.443-.445l.129-5.469a.446.446,0,0,0-.433-.457.441.441,0,0,0-.454.431l-.129,5.475a.45.45,0,0,0,.433.465Z' transform='translate(-1618 -1794)' fill='\\#44474e'></path>" +
+                                                        "</svg>" +
+                                                    "</a></li>" +
+                                                "</ul>" +
+                                            "</div>" +
+                                        "</td>" +
+                                    "</tr>"
+                                )
+                                //.ToolBar(toolbar => toolbar.Create())
+                                //.Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("ConnectorConfigEditAdd").Window(w => w.Title("Add or Edit ConnectorConfig")))
+                                .Pageable()
+                                .Sortable()
+                                .Scrollable()
+                                .HtmlAttributes(new { @style = "height:100%;" })
+                                .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .PageSize(20)
+                                    .Events(events => events.Error("error_handler"))
+                                    .Model(model => model.Id(p => p.Id))
+                                    .Create(update => update.Action("ConnectorConfig_Create", "Connector"))
+                                    .Read(read => read.Action("ConnectorConfigs_Read", "Connector", new { connectorId = Model.Id }))
+                                    .Update(update => update.Action("ConnectorConfig_Update", "Connector"))
+                                    .Destroy(update => update.Action("ConnectorConfig_Destroy", "Connector"))
+                                )
+
+                        )
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="right-content">
+    <div class="content-inner">
+        <div class="column-content">
+            <div class="scroll-bar">
+                <div class="content-box" id="addPanel">
+                    <div class="content-box-header">
+                        <h3 class="h5">Add New ConnectorConfig</h3>
+                    </div>
+                    <div class="content-box-inner">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-default btn-block" onclick="ClearForm();">Clear</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-secondary btn-block" onclick="AddConnectorConfig();">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box" id="editPanel" style="display:none;">
+                    <div class="content-box-header">
+                        <h3 class="h5">Edit ConnectorConfig</h3>
+                    </div>
+                    <div class="content-box-inner">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-default btn-block" onclick="CancelEdit();">Cancel</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-secondary btn-block" onclick="UpdateConnectorConfig();">Update</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="content-box-header">
+                        <h3 class="h5">Details</h3>
+                    </div>
+                    <div class="content-box-inner">
+                        <form>
+                            <input type="hidden" id="hdnID" />
+                            <input type="hidden" id="hdnConnectorID" value="@Model.Id" />
+                            <div class="form-group">
+                                <label>Key Name</label>
+                                <input id="txtKeyName" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Data Type</label>
+                                <input id="txtDataType" type="text" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(document).on('click', '.connectorconfig-edit', function () {
+            var jsondata = {
+                id: $(this).parents('tr').attr('data-uid')
+            };
+
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/Connector/GetConnectorConfig',
+                async: false,
+                data: JSON.stringify(jsondata),
+                success: function (data) {
+                    $('#hdnID').val(data.Id);
+                    $('#hdnConnectorID').val(data.ConnectorId);
+                    $('#txtKeyName').val(data.KeyName);
+                    $('#txtDataType').val(data.DataType);
+
+                    ChangeAddEdit(1);
+                }
+            });
+        });
+        $(document).on('click', '.connectorconfig-view', function () {
+            alert($(this).parents('tr').attr('data-uid'));
+        });
+        $(document).on('click', '.connectorconfig-duplicate', function () {
+            var jsondata = {
+                id: $(this).parents('tr').attr('data-uid')
+            };
+
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/Connector/GetConnectorConfig',
+                async: false,
+                data: JSON.stringify(jsondata),
+                success: function (data) {
+                    $('#hdnConnectorID').val(data.ConnectorId);
+                    $('#txtKeyName').val(data.KeyName);
+                    $('#txtDataType').val(data.DataType);
+                }
+            });
+        });
+        $(document).on('click', '.connectorconfig-delete', function () {
+            var jsondata = {
+                Id: $(this).parents('tr').attr('data-uid')
+            };
+
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/Connector/DeleteConnectorConfig',
+                async: false,
+                data: JSON.stringify(jsondata),
+                success: function (data) {
+                    var grid = $("#Grid").data("kendoGrid");
+
+                    grid.dataSource.read('@Model.Id');
+                }
+            });
+        });
+
+
+    });
+
+
+    function ChangeAddEdit(type) {
+        if (type == 1) {
+            $('#addPanel').hide();
+            $('#editPanel').show();
+        }
+        else if (type == 2) {
+            $('#addPanel').show();
+            $('#editPanel').hide();
+        }
+
+    }
+    function AddConnectorConfig() {
+
+        var clientData = {
+            KeyName: $('#txtKeyName').val(),
+            DataType: $('#txtDataType').val(),
+            ConnectorId: $('#hdnConnectorID').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Connector/AddConnectorConfig',
+            data: JSON.stringify(clientData),
+            async: false,
+            success: function (data) {
+                ClearForm();
+                var grid = $("#Grid").data("kendoGrid");
+
+                grid.dataSource.read('@Model.Id');
+            }
+        });
+    }
+    function UpdateConnectorConfig() {
+
+        var clientData = {
+            Id: $('#hdnID').val(),
+            ConnectorId: $('#hdnConnectorID').val(),
+            KeyName: $('#txtKeyName').val(),
+            DataType: $('#txtDataType').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Connector/UpdateConnectorConfig',
+            data: JSON.stringify(clientData),
+            async: false,
+            success: function (data) {
+                var grid = $("#Grid").data("kendoGrid");
+
+                grid.dataSource.read('@Model.Id');
+            }
+        });
+        CancelEdit();
+    }
+    function ClearForm() {
+        $('#txtKeyName').val("");
+        $('#txtDataType').val("");
+
+    }
+    function CancelEdit() {
+
+        ClearForm();
+        ChangeAddEdit(2);
+
+    }
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+
+    function showDetails(e) {
+
+        e.preventDefault();
+
+
+    }
+
+</script>
